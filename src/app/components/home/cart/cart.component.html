@@ -1,0 +1,72 @@
+<section>
+  <div class="container p-3">
+    <div class="row">
+      <div class="col-8 p-3">
+        <h5>My Shopping Cart</h5>
+
+        <div class="row pt-5 text-center" *ngIf="cartProducts.length<1">
+          <div class="col pt-5">
+            <h4>Empty Cart</h4>
+            <p>Theree's nothing in your cart. Let's add something</p>
+            <a class="btn btn-outline-dark" routerLink="/products">SHOP NOW</a>
+          </div>
+
+        </div>
+
+        <div class="row p-2" *ngFor="let product of cartProducts">
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col-auto">
+                  <img [src]="product.image" class="mr-3" alt="product_image" width=100>
+                </div>
+                <div class="col">
+                  <h5 class="mt-0">{{product.name}}</h5>
+                  <p style="font-size: 12px">Options : <span style="color: grey">{{product.options}}</span></p>
+                  <p style="font-size: 12px">Varient: <span span style="color: grey">{{product.varient}}</span></p>
+                  <div>
+                    <i (click)="descreaseQuantity(product)" class="fas fa-minus pr-2"></i>
+                    <span class="border pl-2 pr-2">{{product.quantity}}</span>
+                    <i (click)="increaseQuantity(product)" class="fas fa-plus pl-2"></i>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="row">
+                    <div class="col">
+                      <div class="float-right">
+                        <span class="offerPrice" *ngIf="product.price.offerPrice">{{product.price.offerPrice |
+                          currency:'INR'}}</span>
+                        <span class="realPrice" *ngIf="product.price.realPrice">{{product.price.realPrice |
+                          currency:'INR'}}</span>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col">
+                      <span class="float-right">
+                        <i (click)="removeCartProduct(product)" class="far fa-trash-alt text-danger"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <br>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-4 border p-3">
+        <app-cart-calculations [cartDetails]="cartService.cartDetails"></app-cart-calculations>
+      </div>
+    </div>
+  </div>
+
+</section>

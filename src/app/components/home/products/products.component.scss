@@ -1,0 +1,15 @@
+.fit-image {
+  width: 100%;
+  object-fit: cover;
+  height: 250px;
+  /* only if you want fixed height */
+}
+
+.card:hover {
+  -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+  box-shadow: 0 8px 12px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+}
+
+h5>a {
+  text-decoration: none;
+}

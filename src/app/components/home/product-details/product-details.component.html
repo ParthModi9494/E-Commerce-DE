@@ -1,0 +1,99 @@
+<section>
+  <div class="container-fluid pt-5" *ngIf="product">
+    <div class="row">
+      <div class="col-6">
+        <!-- <img width="80%" [src]="product.productImages[0].imgUrl" class="img-fluid" alt="Responsive image"> -->
+
+        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+      </div>
+
+      <div class="col-6">
+
+        <div class="row">
+          <div class="col">
+            <h3>{{product.name}}</h3>
+            <p>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+            </p>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col">
+            <p>{{product.description}}</p>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col">
+            <span class="offerPrice" *ngIf="product.price.offerPrice">{{product.price.offerPrice | currency:'INR'}}</span>
+            <span class="realPrice" *ngIf="product.price.realPrice">{{product.price.realPrice | currency:'INR'}}</span>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row cc-selector text-center">
+          <div class="col-auto" *ngFor="let item of product.varients">
+            <input id="{{item.name}}" type="radio" name="varient" value="{{item.name}}" [(ngModel)]="varient" checked
+              (change)="onVarientToggle()" />
+            <label class="image-cc" for="{{item.name}}"><img width="50" [src]="item.imgUrl"></label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-auto">
+            <small *ngIf="!varient" class="text-danger">Please select the Varient</small>
+          </div>
+        </div>
+
+
+        <div class="row cc-selector text-center" *ngIf="varient=='Veg'">
+          <div class="col-auto" *ngFor="let option of vegOptions">
+            <input id="{{option.name}}" type="checkbox" name="options" value="{{option.name}}" (change)="onOptionToggle($event)" />
+            <label class="image-cc" for="{{option.name}}">
+              <img width="50" [src]="option.imgUrl">
+              <p style="font-size: 10px">{{option.name}}</p>
+            </label>
+          </div>
+        </div>
+
+
+
+        <div class="row cc-selector text-center" *ngIf="varient=='Non Veg'">
+          <div class="col-auto" *ngFor="let option of nonvegOptions">
+            <input id="{{option.name}}" type="checkbox" name="options" value="{{option.name}}" (change)="onOptionToggle($event)" />
+            <label class="image-cc" for="{{option.name}}">
+              <img width="50" [src]="option.imgUrl">
+              <p style="font-size: 10px">{{option.name}}</p>
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-auto">
+            <small *ngIf="options.length<1 && varient!=null" class="text-danger">Please select atleast one option</small>
+          </div>
+        </div>
+
+        <div class="row pt-5">
+          <div class="col-auto">
+            <button [disabled]="!varient && options.length<1" class="btn btn-dark" (click)="addToCart(product)">
+              <i class="fas fa-cart-plus"></i>
+              ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
